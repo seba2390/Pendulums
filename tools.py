@@ -4,7 +4,7 @@ import sympy as sp
 import scipy as sc
 import numpy as np
 
-
+import matplotlib
 
 
 def get_cartesian_coordinates(solver_result: sc.integrate._ivp.ivp.OdeResult,
@@ -45,7 +45,7 @@ def get_energies(solver_result: sc.integrate._ivp.ivp.OdeResult,
 
     T1 = sp.Rational(1, 2) * m1 * (l1 * phi1_dot) ** 2
     T2 = sp.Rational(1, 2) * m2 * (
-            l1 ** 2 * phi1_dot ** 2 + l2 ** 2 * phi2_dot ** 2 + 2 * l1 * l2 * phi1_dot * phi2_dot * sp.cos(phi1 - phi2))
+        l1 ** 2 * phi1_dot ** 2 + l2 ** 2 * phi2_dot ** 2 + 2 * l1 * l2 * phi1_dot * phi2_dot * sp.cos(phi1 - phi2))
     T = T1 + T2
 
     # Lambdify the energy expressions
@@ -80,3 +80,31 @@ def downsample_data(upper_pendulum, lower_pendulum, times, n):
         raise ValueError("n must be a positive integer")
 
     return upper_pendulum[::n], lower_pendulum[::n], times[::n]
+
+
+def plot_cart(x_center: float, cart_width: float, cart_height: float, wheel_radius: float,
+              axis: matplotlib.axes.Axes) -> None:
+    def circle(radius: float, centre: tuple[float, float]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        xs = np.linspace(centre[0] - radius, centre[0] + radius, 100)
+        im = np.sqrt(np.clip(radius ** 2 - (xs - centre[0]) ** 2, 0, None))
+        real = centre[1]
+        upper_part, lower_part = real + im, real - im
+        return upper_part, lower_part, xs
+
+    # Bottom side
+    axis.hlines(wheel_radius, x_center - cart_width / 2, x_center + cart_width / 2, colors='k')
+    # Left side
+    axis.vlines(x_center - cart_width / 2, wheel_radius, wheel_radius + cart_height, colors='k')
+    # Top side
+    axis.hlines(wheel_radius + cart_height, x_center - cart_width / 2, x_center + cart_width / 2, colors='k')
+    # Right side
+    axis.vlines(x_center + cart_width / 2, wheel_radius, wheel_radius + cart_height, colors='k')
+
+    # Left tire
+    upper_left_part, lower_left_part, xs = circle(radius=wheel_radius, centre=(x_center - cart_width / 4, wheel_radius))
+    axis.plot(xs, lower_left_part, color='k')
+
+    # Right tire
+    upper_right_part, lower_right_part, xs = circle(radius=wheel_radius,
+                                                    centre=(x_center + cart_width / 4, wheel_radius))
+    axis.plot(xs, lower_right_part, color='k')
