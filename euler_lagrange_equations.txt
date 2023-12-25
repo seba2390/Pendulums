@@ -1,6 +1,0 @@
-Euler-Lagrange Equation for phi1:
-l_{1} \left(g m_{1} \sin{\left(\phi_{1}{\left(t \right)} \right)} + g m_{2} \sin{\left(\phi_{1}{\left(t \right)} \right)} + l_{1} m_{1} \frac{d^{2}}{d t^{2}} \phi_{1}{\left(t \right)} + l_{1} m_{2} \frac{d^{2}}{d t^{2}} \phi_{1}{\left(t \right)} + l_{2} m_{2} \sin{\left(\phi_{1}{\left(t \right)} - \phi_{2}{\left(t \right)} \right)} \left(\frac{d}{d t} \phi_{2}{\left(t \right)}\right)^{2} + l_{2} m_{2} \cos{\left(\phi_{1}{\left(t \right)} - \phi_{2}{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi_{2}{\left(t \right)}\right) = 0
-
-Euler-Lagrange Equation for phi2:
-l_{2} m_{2} \left(g \sin{\left(\phi_{2}{\left(t \right)} \right)} - l_{1} \sin{\left(\phi_{1}{\left(t \right)} - \phi_{2}{\left(t \right)} \right)} \left(\frac{d}{d t} \phi_{1}{\left(t \right)}\right)^{2} + l_{1} \cos{\left(\phi_{1}{\left(t \right)} - \phi_{2}{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi_{1}{\left(t \right)} + l_{2} \frac{d^{2}}{d t^{2}} \phi_{2}{\left(t \right)}\right) = 0
-
